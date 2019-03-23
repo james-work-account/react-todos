@@ -3,34 +3,69 @@ import './App.css';
 import Search from './components/Search.js';
 import Todos from './components/Todos.js';
 import Filters from './components/Filters.js';
-import { TodoFilter } from './common';
+import { TodoFilter, InitialState } from './common';
 
 
 class App extends Component {
 
-  state = {
-    currentTodoText: "",
-    todos: [{
-      id: Date.now(),
-      text: "Click Me!",
-      checked: false
-    }],
-    currentFilter: TodoFilter.all,
-    width: null
+  state = InitialState;
+
+  // Local Storage
+  loadStateFromLocalStorage() {
+    for (let key in this.state) {
+      if (localStorage.hasOwnProperty(key)) {
+        let value = localStorage.getItem(key);
+
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          // handle empty string
+          this.setState({ [key]: value });
+        }
+      }
+    }
+  }
+  saveStateToLocalStorage() {
+    for (let key in this.state) {
+      if(typeof(this.state[key]) != "symbol") {
+        localStorage.setItem(key, JSON.stringify(this.state[key]));
+      }
+    }
   }
 
-  // Track window width
-  componentDidMount = () => {
+  // Lifecycle methods
+  componentDidMount() {
+    // Load state from localStorage
+    this.loadStateFromLocalStorage();
+
+    // Resizing page
     this.setState({width: window.innerWidth});
+    this.setState({currentFilter: TodoFilter.all})
     window.addEventListener("resize", this.updateDimensions);
+
+    // Set localStorage on refresh/reload
+    window.addEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
   }
-  updateDimensions = () => {
+  componentWillUnmount() {
+    // Remove listeners
+    window.removeEventListener(
+      "beforeunload",
+      this.saveStateToLocalStorage.bind(this)
+    );
+    window.removeEventListener("resize", this.updateDimensions);
+    
+    // Save state to localStorage
+    this.saveStateToLocalStorage();
+  }
+
+  updateDimensions() {
     this.setState({ 
       width: window.innerWidth
     });
-  }
-  componentWillUnmount = () => {
-    window.removeEventListener("resize", this.updateDimensions);
   }
 
   // Add a new Todo
