@@ -60,6 +60,21 @@
   cursor: text;
 }
 
+/* Github Link */
+div.github a:visited {
+  color: #000;
+}
+div.github a:focus {
+  color: red;
+}
+div.github {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0 0 5px 5px;
+  width: 100%;
+}
+
 /* Filters */
 .filters {
   display: grid;
@@ -97,5 +112,14 @@
   /* Filters */
   .filters {
     grid-column-gap: 0.5em;
+  }
+}
+
+@media(max-width: 854px) {
+    /* GitHub Link */
+  div.github {
+    background-color: #fff;
+    border-top: 2px solid #000;
+    padding-top: 5px
   }
 }

@@ -4,6 +4,7 @@ import Search from './components/Search.js';
 import Todos from './components/Todos.js';
 import Filters from './components/Filters.js';
 import { TodoFilter, InitialState } from './common';
+import GitHubIcon from './components/GitHubIcon.js'
 
 
 class App extends Component {
@@ -127,15 +128,16 @@ class App extends Component {
         <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
         <Filters handleFilter={this.handleFilter} currentFilter={this.state.currentFilter}/>
         <Todos todos={this.state.todos.filter(
-        (todo) => {
-          switch (this.state.currentFilter) {
-            case TodoFilter.filterCompleted: return todo.checked;
-            case TodoFilter.filterUncompleted: return !todo.checked;
-            case TodoFilter.all: return true;
-            default: return true;
+          (todo) => {
+            switch (this.state.currentFilter) {
+              case TodoFilter.filterCompleted: return todo.checked;
+              case TodoFilter.filterUncompleted: return !todo.checked;
+              case TodoFilter.all: return true;
+              default: return true;
+            }
           }
-        }
-      )} handleDelete={this.handleDelete} handleCheck={this.handleCheck}/>
+        )} handleDelete={this.handleDelete} handleCheck={this.handleCheck}/>
+        <GitHubIcon />
       </div>
     );
   }
