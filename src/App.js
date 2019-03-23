@@ -29,9 +29,7 @@ class App extends Component {
   }
   saveStateToLocalStorage() {
     for (let key in this.state) {
-      if(typeof(this.state[key]) != "symbol") {
         localStorage.setItem(key, JSON.stringify(this.state[key]));
-      }
     }
   }
 
@@ -42,7 +40,6 @@ class App extends Component {
 
     // Resizing page
     this.setState({width: window.innerWidth});
-    this.setState({currentFilter: TodoFilter.all})
     window.addEventListener("resize", this.updateDimensions);
 
     // Set localStorage on refresh/reload
@@ -88,6 +85,13 @@ class App extends Component {
   // Update current Todo text
   handleChange = (event) => this.setState({currentTodoText: event.target.value})
 
+  resetData = (event) => {
+    event.preventDefault();
+    this.setState({todos: InitialState.todos});
+    this.setState({currentTodoText: InitialState.currentTodoText});
+    document.querySelector(".search input").value = "";
+  }
+
   // Delete a Todo
   handleDelete = (todo) => {
     const todos = this.state.todos.filter((td) => td.id !== todo.id)
@@ -125,7 +129,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
+        <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit} resetData={this.resetData}/>
         <Filters handleFilter={this.handleFilter} currentFilter={this.state.currentFilter}/>
         <Todos todos={this.state.todos.filter(
           (todo) => {
