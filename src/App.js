@@ -62,7 +62,7 @@ class App extends Component {
     this.saveStateToLocalStorage();
   }
 
-  updateDimensions() {
+  updateDimensions = () => {
     this.setState({ 
       width: window.innerWidth
     });
