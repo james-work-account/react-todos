@@ -26,7 +26,6 @@ class App extends Component {
         }
       }
     }
-    console.log(this.state)
   }
   saveStateToLocalStorage() {
     for (let key in this.state) {
