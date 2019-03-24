@@ -89,6 +89,7 @@ class App extends Component {
     event.preventDefault();
     this.setState({todos: InitialState.todos});
     this.setState({currentTodoText: InitialState.currentTodoText});
+    this.setState({currentFilter: InitialState.currentFilter});
     document.querySelector(".search input").value = "";
   }
 
