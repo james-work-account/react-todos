@@ -11,6 +11,6 @@ export const InitialState = {
     text: "Click Me!",
     checked: false
   }],
-  currentFilter: null,
+  currentFilter: TodoFilter.all,
   width: null
 }
