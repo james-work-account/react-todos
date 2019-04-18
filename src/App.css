@@ -126,4 +126,8 @@ div.github {
     border-top: 2px solid #000;
     padding-top: 5px
   }
+
+  div.body {
+    padding-bottom: calc(18px + 18px + 10px + 8px) /* 2em footer font size + footer padding + 8px body padding*/
+  }
 }

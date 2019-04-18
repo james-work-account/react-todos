@@ -122,18 +122,20 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit} resetData={this.resetData}/>
-        <Filters handleFilter={this.handleFilter} currentFilter={this.state.currentFilter}/>
-        <Todos todos={this.state.todos.filter(
-          (todo) => {
-            switch (this.state.currentFilter) {
-              case TodoFilter.filterCompleted: return todo.checked;
-              case TodoFilter.filterUncompleted: return !todo.checked;
-              case TodoFilter.all: return true;
-              default: return true;
+        <div className="body">
+          <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit} resetData={this.resetData}/>
+          <Filters handleFilter={this.handleFilter} currentFilter={this.state.currentFilter}/>
+          <Todos todos={this.state.todos.filter(
+            (todo) => {
+              switch (this.state.currentFilter) {
+                case TodoFilter.filterCompleted: return todo.checked;
+                case TodoFilter.filterUncompleted: return !todo.checked;
+                case TodoFilter.all: return true;
+                default: return true;
+              }
             }
-          }
-        )} handleDelete={this.handleDelete} handleCheck={this.handleCheck}/>
+          )} handleDelete={this.handleDelete} handleCheck={this.handleCheck}/>
+        </div>
         <GitHubIcon />
       </div>
     );
