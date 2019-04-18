@@ -41,21 +41,13 @@ class App extends Component {
     // Resizing page
     this.setState({width: window.innerWidth});
     window.addEventListener("resize", this.updateDimensions);
-
-    // Set localStorage on refresh/reload
-    window.addEventListener(
-      "beforeunload",
-      this.saveStateToLocalStorage.bind(this)
-    );
   }
   componentWillUnmount() {
     // Remove listeners
-    window.removeEventListener(
-      "beforeunload",
-      this.saveStateToLocalStorage.bind(this)
-    );
     window.removeEventListener("resize", this.updateDimensions);
-    
+  }
+
+  componentDidUpdate() {
     // Save state to localStorage
     this.saveStateToLocalStorage();
   }
